@@ -26,6 +26,7 @@ class BurgerBuilder extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         axios.get("https://react-my-burger-bb7e7.firebaseio.com/Ingredients.json")
             .then(response => {
                 this.setState({ ingredients: response.data })
@@ -89,28 +90,29 @@ class BurgerBuilder extends React.Component {
     };
     purchaseContinueHandler = () => {
         // alert("You continue!")
-        this.setState({ loading: true })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Daniel Buitrago",
-                address: {
-                    street: "Delevan st",
-                    zipCode: "30325",
-                    country: "USA"
-                },
-                email: "danbui57@test.com",
-            },
-            deliveryMethod: "fastest"
-        }
-        axios.post("/orders.json", order)
-            .then(response => {
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => {
-                this.setState({ loading: false, purchasing: false });
-            });
+        // this.setState({ loading: true })
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: "Daniel Buitrago",
+        //         address: {
+        //             street: "Delevan st",
+        //             zipCode: "30325",
+        //             country: "USA"
+        //         },
+        //         email: "danbui57@test.com",
+        //     },
+        //     deliveryMethod: "fastest"
+        // }
+        // axios.post("/orders.json", order)
+        //     .then(response => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     });
+        this.props.history.push("/checkout"); 
     };
 
     render() {
