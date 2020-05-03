@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../../../components/UI/Button/Button"
-import Classes from "./ContactData.module.css"
+import classes from "./ContactData.module.css"
 import axios from "../../../axios-orders"
 import Spinner from "../../../components/UI/Spinner/Spinner"
 import Input from "../../../components/UI/Input/Input"
@@ -30,29 +30,34 @@ class ContactData extends React.Component {
                     type: "text",
                     placeholder: "ZIP Code"
                 },
+                value: ""
             },
 
             country: {
                 elementType: "input",
                 elementConfig: {
                     type: "text",
-                    placeholder: "country"
+                    placeholder: "Country"
                 },
                 value: ""
             },
             email: {
                 elementType: "input",
                 elementConfig: {
-                    type: "text",
-                    placeholder: "Your E-mail"
+                    type: "email",
+                    placeholder: "Your E-Mail"
                 },
+                value: ""
             },
             deliveryMethod: {
                 elementType: "select",
                 elementConfig: {
-                    options: [{ value: "Fastest", displayValue: "Fastest" },
-                    { vale: "Cheapest", displayValue: "Cheapest" }]
-                }
+                    options: [
+                        { value: "fastest", displayValue: "Fastest" },
+                        { value: "cheapest", displayValue: "Cheapest" }
+                    ]
+                },
+                value: ""
             }
 
         },
@@ -78,6 +83,18 @@ class ContactData extends React.Component {
             });
     }
 
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+       const updatedFormElement = {
+           ...updatedOrderForm[inputIdentifier]
+    };
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm: updatedOrderForm})
+    }
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.orderForm) {
@@ -93,7 +110,8 @@ class ContactData extends React.Component {
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value} />
+                        value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
@@ -102,7 +120,7 @@ class ContactData extends React.Component {
             form = <Spinner />
         }
         return (
-            <div className={Classes.ContactData}>
+            <div className={classes.ContactData}>
                 <h4>Enter your Contact Data</h4>
                 {form}
             </div>

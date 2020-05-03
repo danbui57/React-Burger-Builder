@@ -6,8 +6,9 @@
 
 .Label {
     font-weight: bold;
-    disply: block;
+    display: block;
     margin-bottom: 8px;
+    /* background-color:red */
 }
 
 .InputElement {
