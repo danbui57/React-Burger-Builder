@@ -12,7 +12,7 @@ class ContactData extends React.Component {
                 elementType: "input",
                 elementConfig: {
                     type: "text",
-                    placeholder: "Your Name"
+                    placeholder: "Name"
                 },
                 value: "",
                 validation: {
